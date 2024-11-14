@@ -8,6 +8,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { secret } from './utils/constants';
 import { join } from 'path';
 import { VideoModule } from './video/video.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid';
 
 @Module({
   imports: [
@@ -19,6 +22,15 @@ import { VideoModule } from './video/video.module';
     }),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') }),
     VideoModule,
+    MulterModule.register({
+      storage: diskStorage({
+        destination: './public',
+        filename: (req, file, cb) => {
+          const ext = file.mimetype.split('/')[1];
+          cb(null, `${uuidv4()}.${ext}`);
+        },
+      }),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
