@@ -64,4 +64,12 @@ export class VideoService {
       throw new ServiceUnavailableException();
     }
   }
+
+  async update(id, video: Video): Promise<Video> {
+    return this.VideoModel.findByIdAndUpdate(id, video, { new: true });
+  }
+
+  async delete(id): Promise<any> {
+    return this.VideoModel.findByIdAndDelete(id);
+  }
 }
