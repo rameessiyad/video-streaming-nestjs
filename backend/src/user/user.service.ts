@@ -38,4 +38,7 @@ export class UserService {
     }
     return new HttpException('Invalid credentails', HttpStatus.UNAUTHORIZED);
   }
+  async getOne(email): Promise<User> {
+    return await this.userModel.findOne({ email }).exec();
+  }
 }
