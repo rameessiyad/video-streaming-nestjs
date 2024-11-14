@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { secret } from './utils/constants';
 import { join } from 'path';
+import { VideoModule } from './video/video.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { join } from 'path';
       signOptions: { expiresIn: '2h' },
     }),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') }),
+    VideoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
