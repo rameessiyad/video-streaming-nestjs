@@ -1,8 +1,9 @@
+import { useState } from "react";
+import Routing from "./Routing";
 
 const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  return <Routing isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />;
+};
 
-export default App
+export default App;
