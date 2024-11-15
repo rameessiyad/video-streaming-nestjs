@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
 
 const Header = ({ isLoggedIn }) => {
   const [open, setOpen] = useState(false);
@@ -66,6 +67,22 @@ const Header = ({ isLoggedIn }) => {
     },
   }));
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new formData();
+    formData.append("title", title);
+    formData.append("video", video);
+    formData.append("cover", cover);
+
+    const token = localStorage.getItem("token");
+    await axios.post("http://localhost:5000/video", formData, {
+      headers: {
+        Authorization: "Bearer" + token,
+      },
+    });
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -99,7 +116,7 @@ const Header = ({ isLoggedIn }) => {
                 >
                   <Box sx={style}>
                     <Typography>
-                      <Box component="form">
+                      <Box component="form" onSubmit={handleSubmit}>
                         <label>Video Title:</label>
                         <TextField
                           margin="normal"
