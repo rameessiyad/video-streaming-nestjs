@@ -35,6 +35,7 @@ const VideoList = ({ setLoggedIn }) => {
         navigate("/");
       }
     };
+    fetchVideos();
   }, [navigate, setLoggedIn]);
   return (
     <Container>
